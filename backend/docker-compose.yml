@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: tnis-postgres
+    environment:
+      POSTGRES_USER: tnis
+      POSTGRES_PASSWORD: tnis_secure_password
+      POSTGRES_DB: tnis_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tnis -d tnis_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: tnis-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tnis-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://tnis:tnis_secure_password@postgres:5432/tnis_db"
+      REDIS_URL: "redis://redis:6379/0"
+      VLLM_BASE_URL: "http://vllm:8080/v1"
+      TEI_BASE_URL: "http://tei:8081"
+      AI_ANALYZER: "off"
+      AI_SUGGESTIONS: "off"
+      AI_REVIEWER_BRIEF: "off"
+      AI_SEARCH: "off"
+      AI_LEXICON_PROPOSALS: "off"
+    ports:
+      - "8000:8000"
+
+  # Placeholder for self-hosted OpenAI-compatible vLLM instance (N5)
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: tnis-vllm
+    profiles:
+      - ai
+    ports:
+      - "8080:8080"
+    environment:
+      - MODEL=meta-llama/Meta-Llama-3-8B-Instruct
+    command: ["--model", "meta-llama/Meta-Llama-3-8B-Instruct", "--port", "8080"]
+
+  # Placeholder for self-hosted Text Embeddings Inference (TEI) instance (N5)
+  tei:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-latest
+    container_name: tnis-tei
+    profiles:
+      - ai
+    ports:
+      - "8081:80"
+    environment:
+      - MODEL_ID=intfloat/multilingual-e5-base
+    command: ["--model-id", "intfloat/multilingual-e5-base", "--port", "80"]
+
+volumes:
+  postgres_data:
+  redis_data:

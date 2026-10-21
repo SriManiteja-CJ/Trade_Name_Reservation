@@ -1,0 +1,31 @@
+# Trade Name Intelligence Service - Python Dependencies
+# Core API & Server
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+python-multipart>=0.0.9
+python-dotenv>=1.0.0
+pyjwt>=2.8.0
+
+# Database & ORM
+sqlalchemy[asyncio]>=2.0.36
+asyncpg>=0.29.0
+aiosqlite>=0.20.0
+alembic>=1.13.3
+greenlet>=3.0.0
+
+# Text Processing & Fuzzy Matching
+rapidfuzz>=3.9.0
+
+# HTTP Client (vLLM / TEI / LLM Gateway)
+httpx>=0.27.0
+
+# Observability & Logging
+structlog>=24.4.0
+opentelemetry-api>=1.27.0
+opentelemetry-sdk>=1.27.0
+
+# Testing & Dev
+pytest>=8.3.0
+pytest-asyncio>=0.24.0

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 240" fill="none">
+  <defs>
+    <!-- Deep Navy to Azure Gradient as in Figma screen -->
+    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2540"/>
+      <stop offset="45%" stop-color="#144170"/>
+      <stop offset="85%" stop-color="#1e5898"/>
+      <stop offset="100%" stop-color="#2a72b8"/>
+    </linearGradient>
+    <linearGradient id="overlayFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a2540" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#144170" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1e5898" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Rectangle -->
+  <rect width="1200" height="240" rx="10" fill="url(#heroGrad)"/>
+  
+  <!-- Geometric luxury accents -->
+  <path d="M700 0 L1200 0 L1200 240 L850 240 Z" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="1050" cy="120" r="140" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="40"/>
+  <circle cx="1050" cy="120" r="220" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="60"/>
+
+  <!-- Stylized UAE Emirati Business Handshake Silhouette -->
+  <g transform="translate(850, 40)" opacity="0.45" stroke="#ffffff" stroke-width="3" fill="none">
+    <!-- Hand 1 (Kandura Sleeve Left) -->
+    <path d="M0 120 C40 100, 80 85, 120 80 L160 90 L180 80 L195 90 L210 105 L170 140 L130 145 C80 150, 40 145, 0 135" fill="rgba(255,255,255,0.15)"/>
+    <!-- Hand 2 (Business Suit Sleeve Right) -->
+    <path d="M300 120 C260 100, 220 85, 180 80 L140 90 L120 80 L105 90 L90 105 L130 140 L170 145 C220 150, 260 145, 300 135" fill="rgba(255,255,255,0.1)"/>
+    <!-- Watch / Cuff Detail -->
+    <rect x="250" y="105" width="20" height="30" rx="4" fill="rgba(255,255,255,0.2)"/>
+  </g>
+  <!-- Left Overlay to keep text legible -->
+  <rect width="700" height="240" rx="10" fill="url(#overlayFade)"/>
+</svg>
